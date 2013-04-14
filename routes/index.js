@@ -41,14 +41,35 @@ exports.novoMamoeiro = function(req, res) {
 }
 
 exports.novoMamao = function(req, res) {
+    var data = {};
     console.log("novo mamao: " + req.query.email);
-    Mamao.novoMamao(req.body.email, req.body.data, function(mamao, err) {
+    data.latitude = req.query.latitude;
+    data.longitude = req.query.longitude;
+    data.tipo = req.query.tipo;
+    data.titulo = req.query.titulo;
+    Mamao.novoMamao(req.query.email, data, function(mamao, err) {
         if (mamao) {
             res.json(mamao);
         } else {
             res.json(err);
         }
     });
+}
+
+exports.atualizaMamao = function(req, res) {
+    var data = {};
+    console.log("atualiza mamao: " + req.query._id);
+    data.latitude = req.query.latitude;
+    data.longitude = req.query.longitude;
+    data.tipo = req.query.tipo;
+    data.titulo = req.query.titulo;
+    Mamao.atualizaMamao(req.query.email, req.query._id, data, function(mamao, err) {
+        if (mamao) {
+            res.json(mamao);
+        } else {
+            res.json(err);
+        }
+    })
 }
 
 exports.novoMamaoComentario = function(req, res) {

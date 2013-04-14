@@ -25,6 +25,7 @@ var MamaoSchema = new db.Schema({
     longitude: String,
     tipo: String,
     situacao: String,
+    titulo: String,
     comentarios: [{ type: db.Schema.Types.ObjectId, ref: 'Comentario' }],
     created_at : { type : Date, default: Date.now }
 });
@@ -54,6 +55,10 @@ module.exports = {
 
             if (err) {
                 inCallback(null, err);
+            }
+
+            if (mamoeiroPossivel) {
+                inCallback(mamoeiroPossivel, null);
             }
         });
 
@@ -93,6 +98,21 @@ module.exports = {
             });
         });
     },
+    atualizaMamao: function(inEmail, inId, inData, inCallback) {
+        Mamao.findById(inId, function(err, mamao) {
+            if (err) {
+                inCallback(mamao, err);
+                return false;
+            }
+
+            mamao.latitude = inData.latitude;
+            mamao.longitude = inData.longitude;
+
+            mamao.save(function(err){
+                inCallback(mamao, err);
+            })
+        })
+    },
     /**
      * Retorna todos os mamoes no banco de dados.
      *
@@ -116,6 +136,6 @@ module.exports = {
             });
     },
     novoMamaoComentario: function(inEmail, inId, inData, inCallback) {
-        
+
     }
 };

@@ -54,6 +54,7 @@ if ('development' == app.get('env')) {
 // MAMOES
 app.get("/pegamamoes", routes.pegaMamoes);
 app.get("/pegamamao", routes.pegaMamao);
+app.post("/atualizamamao", routes.atualizaMamao);
 
 
 // MAMOEIRO
